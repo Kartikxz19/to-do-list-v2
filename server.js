@@ -3,7 +3,10 @@ const date=require(__dirname+'/date.js');
 const _=require('lodash');
 const mongoose=require('mongoose');
 const url="mongodb+srv://kartiksri1911:Srivas%401911@cluster0.jjtjabb.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(url,{useNewUrlParser:true});
+mongoose.connect(url,{useNewUrlParser:true})
+    .then(app.listen(3000,()=>{
+    console.log("Server Running at port 3000");
+}));
 const app=express();
 /* const items=["Buy food", "Eat food","Cook food"];
 const workitems=[]; */
@@ -116,6 +119,4 @@ app.post('/newlist',(req,res)=>{
     const name=req.body.newlist;
     res.redirect("/"+name);
 })
-app.listen(3000,()=>{
-    console.log("Server Running at port 3000");
-});
+
