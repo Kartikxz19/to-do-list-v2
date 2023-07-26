@@ -1,0 +1,42 @@
+<%- include("header") -%>
+
+    <div class="box" id="heading">
+        <h1><%=listTitle%></h1>
+    </div>
+    <div class="box">
+
+            <%todoitem.forEach(element=>{%>
+                <form action="/delete" method="post">
+                    <div class="item">
+                        <input type="checkbox" name="checkbox" value="<%=element._id %>" onchange="this.form.submit()"><p><%=element.name%></p>
+                    </div>
+                    <input type="hidden" name="listName" value="<%=listTitle%>">
+                </form>
+            <%})%>
+            <form class="item" action="/" method="post">
+                <input type="text" name="todo" placeholder="New Item" autocomplete="off">
+                <button class="actual" type="submit" name="list" value=<%=listTitle%>>+</button>
+                <!--button attribute value=<%=listTitle%> is not a string type.Hence,only the first word gets parsed by the body parser and not the whole string.
+                    But if you write value=" <%=listTitle%> " ,then it becomes a string and whole sentence is parsed.-->
+            </form>
+    </div>
+    <div class="position-fixed bottom-0 start-0 w-5">
+        <form action="/newlist" method="post">
+            <label for="newlist">New List</label>
+            <span class="align-baseline border border-light border-2 rounded"><input type="text" name="newlist" id="newlist" required></span>
+            <button class="actual" type="submit">+</button>
+        </form>
+    </div>
+    <!--btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center-->
+      <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 pe-3 bd-mode-toggle">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Select List👀
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href='/'>Today</a></li>
+            <%alllists.forEach(element=>{%>
+              <li><a class="dropdown-item" href='/<%=element.name%>'><%=element.name%></a></li>
+            <%})%>
+        </ul>
+      </div>
+<%- include("footer")-%>
