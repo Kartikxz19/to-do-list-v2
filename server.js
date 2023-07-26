@@ -2,19 +2,22 @@ const express=require('express');
 const date=require(__dirname+'/date.js');
 const _=require('lodash');
 const mongoose=require('mongoose');
+const app=express();
+app.set('view engine','ejs');
+app.use(express.urlencoded({extended:true}));
+app.use(express.static('public'));
 const url="mongodb+srv://kartiksri1911:Srivas%401911@cluster0.jjtjabb.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(url,{useNewUrlParser:true})
     .then(app.listen(3000,()=>{
     console.log("Server Running at port 3000");
 }));
-const app=express();
+
 /* const items=["Buy food", "Eat food","Cook food"];
 const workitems=[]; */
 //Note: It is possible to push items in a const array but not possible to assign a completely different set of values to it.
-app.set('view engine','ejs');
 
-app.use(express.urlencoded({extended:true}));
-app.use(express.static('public'));
+
+
 const itemSchema=mongoose.Schema(
     {
         name:String
